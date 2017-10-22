@@ -7,32 +7,32 @@ senf sets an environment variable `$COURSE`, when you start your study environme
 A simple example would be moving course related content to your course folder hierarchy.
 ```bash
 # create a new course
-senf init soma
+senf-init soma
 
 # course is called soma
-senf workon soma
+senf-workon soma
 
 # cd into your local downloads location
 cd ~/Downloads
 
 # move the previously downloaded presentation slide to your presentation folder
-senf mv presentation soma-presentation-01.pdf
+senf-mv presentation soma-presentation-01.pdf
 
 # leave your student environment
-senf deactivate
+senf-deactivate
 ```
 
 ## Usage (planned)
 ```
-senf [command] [parameters]
+senf-[command] [parameters]
 
-senf init [course-name]
-senf workon [course-name]
-senf deactivate
+senf-init [course-name]
+senf-workon [course-name]
+senf-deactivate
 
-senf mv [course-directory] [file1] [...] [fileN] 
-senf zip [course-directory]
-senf send [application] [course-directory]
+senf-mv [course-directory] [file1] [...] [fileN] 
+senf-zip [course-directory]
+senf-send [application] [course-directory]
 ```
 
 ## Features
