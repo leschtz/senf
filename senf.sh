@@ -2,7 +2,7 @@
 # created by leschtz
 
 ### IS IT ALLOWED TO USE set -e IN PRODUCTION?
-set -e
+#set -e
 
 SEMESTER="$HOME/university/00-bachelor-computer-science/05-semester/"
 export SEMESTER
@@ -12,7 +12,7 @@ export SEMESTER
 #{
 #  if [[ -z ${COURSE+x} ]]
 #  then
-#    exit -1
+  #    exit -1
 #  fi
 #}
 
@@ -22,57 +22,63 @@ senf-init ()
 
   if [[ $REPLY =~ ^[Yy]$ ]]
   then
-    pushd $SEMESTER
-    mkdir -p $1/{presentation,exam-preparation,books,practicals}
-    touch $1/links
-    touch $1/.studyrc
+    pushd "$SEMESTER"
+    mkdir -p "$1"/{presentation,exam-preparation,books,practicals}
+    touch "$1"/links
+    touch "$1"/.studyrc
     popd
-    printf "\nSuccesfully created '$1' in '$SEMESTER'\n"
+    printf '\nSuccesfully created '%s' in '%s'\n' "$1" "$SEMESTER"
   else
-    printf "\nAborted.\n"
+    printf '\nAborted.\n'
   fi
 
 }
 
 senf-workon ()
 {
-  if [[ ! "$#" -eq 1 ]]; then
-    exit 3
-  fi
-  COURSE=$(find $SEMESTER -maxdepth 1 -name $1 -type d -print -quit)
+#  if [[ ! "$#" -eq 1 ]]; then
+#    return 3
+#  fi
+  COURSE=$(find "$SEMESTER" -maxdepth 1 -name "$1" -type d -print -quit)
   if [[ -z $COURSE ]]; then
-          printf "There is no course %s for this semester!\n" "$1"
+          printf 'There is no course %s for this semester!\n' "$1"
   else
-          printf "WORKON: '%s'\n" "$COURSE"
+          printf 'WORKON: '%s'\n' "$COURSE"
+
+          # ignored by shellcheck
+          # shellcheck source=/dev/null
           source senf-helper
-          source "$COURSE/.studyrc"
+          # shellcheck source=/dev/null
+          source "$COURSE"/.studyrc
   fi
 }
 
 senf-list ()
 {
-  LIST=$(ls -l $SEMESTER | egrep '^d' | awk '{print $9}')
-  for DIR in $LIST
+  list
+  #list=$(ls -l "$SEMESTER" | grep -E '^d' | awk '{print "$9"}')
+  list=$(ls -d ./*/)
+  for dir in $list
   do
     if [[ -z ${COURSE+x} ]]
     then
-      echo -e "$DIR"
+      echo -e "$dir"
       continue
     fi
 
-    if [[ "$(basename $COURSE)" != "$DIR" ]]
+    if [[ $(basename "$COURSE") != "$dir" ]]
     then
-      echo -e "$DIR"
+      echo -e "$dir"
     else
-      echo -e "\033[0;34m* $DIR\033[0m"
+      echo -e "\033[0;34m* $dir\033[0m"
     fi
   done
 
-  unset LIST
+  unset list
 }
 
 senf-deactivate ()
 {
   unset COURSE
-  unset -f senf-mv senf-cd senf-check-course
+  unset -f senf-mv senf-cd #senf-check-course
 }

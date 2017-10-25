@@ -1,17 +1,18 @@
+#! /bin/bash
 # created by leschtz
 
-set -e
+#set -e
 
 senf-mv ()
 {
   #senf-check-course
-  if [[ ! -d "$COURSE/$1" ]]
+  directory="$COURSE/$1"
+  if [[ ! -d "$directory" ]]
   then
-    printf "There is no directory %s for your course %s.\n" "$1" "$(basename $COURSE)"
-    exit 2
+    printf 'There is no directory %s for your course %s.\n' "$1" "$(basename $COURSE)"
   fi
 
-  directory="$COURSE/$1"
+
 
   mv "$@" "$directory"
 }
@@ -21,13 +22,13 @@ senf-cd ()
   #senf-check-course
   if [[ "$#" -eq 0 ]]
   then
-    printf "Moving to std: %s...\n" "$COURSE"
-    cd "$COURSE"
+    printf 'Moving to std: %s...\n' "$COURSE"
+    cd "$COURSE" || return 1
   elif [[ -d "$COURSE/$1" ]]
   then
-    printf "Moving to %s/%s...\n" "$COURSE" "$1"
-    cd "$COURSE/$1"
+    printf 'Moving to %s/%s...\n' "$COURSE" "$1"
+    cd "$COURSE/$1" || return 1
   else
-    printf "Not a valid destination...\n"
+    printf 'Not a valid destination...\n'
   fi
 }
