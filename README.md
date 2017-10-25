@@ -1,8 +1,8 @@
 # senf - study environment
-senf offers some handy bash functions for students. 
+senf offers some handy bash functions for students.
 
 ## How does it work?
-senf sets an environment variable `$COURSE`, when you start your study environment. This variable offers you easier access to your course hierarchy. 
+senf sets an environment variable `$COURSE`, when you start your study environment. This variable offers you easier access to your course hierarchy.
 
 A simple example would be moving course related content to your course folder hierarchy.
 ```bash
@@ -28,9 +28,10 @@ senf-[command] [parameters]
 
 senf-init [course-name]
 senf-workon [course-name]
+senf-list
 senf-deactivate
 
-senf-mv [course-directory] [file1] [...] [fileN] 
+senf-mv [course-directory] [file1] [...] [fileN]
 senf-zip [course-directory]
 senf-send [application] [course-directory]
 ```
