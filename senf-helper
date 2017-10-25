@@ -12,9 +12,19 @@ senf-mv ()
     printf 'There is no directory %s for your course %s.\n' "$1" "$(basename $COURSE)"
   fi
 
-
-
   mv "$@" "$directory"
+}
+
+senf-cp ()
+{
+  #senf-check-course
+  directory="$COURSE/$1"
+  if [[ ! -d "$directory" ]]
+  then
+    printf 'There is no directory %s for your course %s.\n' "$1" "$(basename $COURSE)"
+  fi
+
+  cp -i -r "$@" "$directory"
 }
 
 senf-cd ()
@@ -31,4 +41,18 @@ senf-cd ()
   else
     printf 'Not a valid destination...\n'
   fi
+}
+
+senf-zip ()
+{
+  # $1=archive_name
+  # $@=files to be zipped
+  #zip -r "$COURSE"/"$1".zip "$@"
+  #archive="$COURSE"/"$1".zip
+  #echo "$archive"
+  #for item in "$@"
+  #do
+  #  zip -r "$archive" "$COURSE"/"$item"
+  #done
+  echo 'Not yet implemented!'
 }
