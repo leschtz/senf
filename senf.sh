@@ -45,6 +45,28 @@ senf-workon ()
   fi
 }
 
+senf-list ()
+{
+  LIST=$(ls -l $SEMESTER | egrep '^d' | awk '{print $9}')
+  for DIR in $LIST
+  do
+    if [[ -z ${COURSE+x} ]]
+    then
+      echo "$DIR"
+      continue
+    fi
+
+    if [[ "$(basename $COURSE)" != "$DIR" ]]
+    then
+      echo "$DIR"
+    else
+      echo "* $DIR"
+    fi
+  done
+
+  unset LIST
+}
+
 senf-deactivate ()
 {
   unset COURSE
