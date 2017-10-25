@@ -1,8 +1,10 @@
 # created by leschtz
 
+set -e
+
 senf-mv ()
 {
-  senf-check-course
+  #senf-check-course
   if [[ ! -d "$COURSE/$1" ]]
   then
     printf "There is no directory %s for your course %s.\n" "$1" "$(basename $COURSE)"
@@ -16,18 +18,16 @@ senf-mv ()
 
 senf-cd ()
 {
-  senf-check-course
-  echo -e "$@ $#"
+  #senf-check-course
   if [[ "$#" -eq 0 ]]
   then
     printf "Moving to std: %s...\n" "$COURSE"
     cd "$COURSE"
-  elif [[ -d "$($COURSE/$1)" ]]
+  elif [[ -d "$COURSE/$1" ]]
   then
     printf "Moving to %s/%s...\n" "$COURSE" "$1"
     cd "$COURSE/$1"
   else
     printf "Not a valid destination...\n"
-    exit 3
   fi
 }

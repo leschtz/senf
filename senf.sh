@@ -1,16 +1,20 @@
 #! /bin/bash
 # created by leschtz
 
+### IS IT ALLOWED TO USE set -e IN PRODUCTION?
+set -e
+
 SEMESTER="$HOME/university/00-bachelor-computer-science/05-semester/"
 export SEMESTER
 
-senf-check-course ()
-{
-  if [[ -z ${COURSE+x} ]]
-  then
-    exit -1
-  fi
-}
+## commented out as it is unknown to me if "set -e" is allowed
+#senf-check-course ()
+#{
+#  if [[ -z ${COURSE+x} ]]
+#  then
+#    exit -1
+#  fi
+#}
 
 senf-init ()
 {
@@ -23,7 +27,7 @@ senf-init ()
     touch $1/links
     touch $1/.studyrc
     popd
-    printf "Succesfully created '$1' in '$SEMESTER'\n"
+    printf "\nSuccesfully created '$1' in '$SEMESTER'\n"
   else
     printf "\nAborted.\n"
   fi
