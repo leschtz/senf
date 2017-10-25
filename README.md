@@ -60,12 +60,8 @@ senf-send [application] [course-directory]
 You can change this accordingly, by changing the the hard-coded values in the script.
 
 ### Structure Definition
-* `links` is a normal textfile, containing links to relevant websites. It is planned, to utilize the content for some scripts. [MORE TO FOLLOW]
-
-* `books/` is a directory, for relevant papers, books, etc..
-
-* `exam-preparation` is a directory, for exam relevant information, like old exams, your own 'exam preparation' notes, question catalogues and anything else, closely related to the exam.
-
-* `practicals`, is a directory, for homework, laboratory stuff, vcs stuff, etc.. This can either be the repository itself or contain the repository as a sub-directory.
-
-* `presentation`, is a directory, for the lectures stuff.
+- `links` is a normal textfile, containing links to relevant websites. It is planned, to utilize the content for some scripts. [MORE TO FOLLOW]
+- `books/` is a directory, for relevant papers, books, etc..
+- `exam-preparation` is a directory, for exam relevant information, like old exams, your own 'exam preparation' notes, question catalogues and anything else, closely related to the exam.
+- `practicals`, is a directory, for homework, laboratory stuff, vcs stuff, etc.. This can either be the repository itself or contain the repository as a sub-directory.
+- `presentation`, is a directory, for the lectures stuff.
