@@ -17,7 +17,7 @@ senf-mv ()
 senf-cd ()
 {
   senf-check-course
-  echo "$@ $#"
+  echo -e "$@ $#"
   if [[ "$#" -eq 0 ]]
   then
     printf "Moving to std: %s...\n" "$COURSE"

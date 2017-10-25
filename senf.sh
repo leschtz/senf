@@ -52,15 +52,15 @@ senf-list ()
   do
     if [[ -z ${COURSE+x} ]]
     then
-      echo "$DIR"
+      echo -e "$DIR"
       continue
     fi
 
     if [[ "$(basename $COURSE)" != "$DIR" ]]
     then
-      echo "$DIR"
+      echo -e "$DIR"
     else
-      echo "* $DIR"
+      echo -e "\033[0;34m* $DIR\033[0m"
     fi
   done
 
