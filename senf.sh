@@ -53,11 +53,10 @@ senf-workon ()
   fi
 }
 
+
 senf-list ()
 {
-  list
-  #list=$(ls -l "$SEMESTER" | grep -E '^d' | awk '{print "$9"}')
-  list=$(ls -d ./*/)
+  list=$(ls  $SEMESTER)
   for dir in $list
   do
     if [[ -z ${COURSE+x} ]]
@@ -82,3 +81,12 @@ senf-deactivate ()
   unset COURSE
   unset -f senf-mv senf-cd #senf-check-course
 }
+
+function _autocom()
+{
+        local cur
+        COMPREPLY=()
+        cur=${COMP_WORDS[COMP_CWORD]}
+        COMPREPLY=($(compgen -W "$(ls $SEMESTER)" -- $cur ))
+}
+complete -F _autocom senf-workon
