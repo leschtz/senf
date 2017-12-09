@@ -82,11 +82,11 @@ senf-deactivate ()
   unset -f senf-mv senf-cd #senf-check-course
 }
 
-function _autocom()
+function _courses_autocom()
 {
         local cur
         COMPREPLY=()
         cur=${COMP_WORDS[COMP_CWORD]}
         COMPREPLY=($(compgen -W "$(ls $SEMESTER)" -- $cur ))
 }
-complete -F _autocom senf-workon
+complete -F _courses_autocom senf-workon

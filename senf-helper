@@ -56,3 +56,15 @@ senf-zip ()
   #done
   echo 'Not yet implemented!'
 }
+
+function _details_autocom()
+{
+        local cur
+        COMPREPLY=()
+        cur=${COMP_WORDS[COMP_CWORD]}
+        COMPREPLY=($(compgen -W "$(ls $COURSE)" -- $cur))
+}
+
+### using a custom completion prohibits to use completion for local changes.
+#complete -F _details_autocom senf-mv
+complete -F _details_autocom senf-cd
