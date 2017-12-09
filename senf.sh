@@ -47,7 +47,7 @@ senf-workon ()
 
           # ignored by shellcheck
           # shellcheck source=/dev/null
-          source senf-helper
+          source helper/senf-helper
           # shellcheck source=/dev/null
           source "$COURSE"/.studyrc
   fi
