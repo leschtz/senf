@@ -47,7 +47,11 @@ senf-workon ()
 
           # ignored by shellcheck
           # shellcheck source=/dev/null
-          source helper/senf-helper
+          ### WARNING
+          ### this is a dirty hack, could be unreliable
+          ###
+          #echo "${BASH_SOURCE%/*}"
+          source "${BASH_SOURCE%/*}/helper/senf-helper"
           # shellcheck source=/dev/null
           source "$COURSE"/.studyrc
   fi
