@@ -44,6 +44,7 @@ senf-deactivate
 senf-mv [course-directory] [file1] [...] [fileN]
 senf-zip [course-directory]
 senf-send [application] [course-directory]
+senf-ssh # add ssh key to ssh-agent for the specific course
 ```
 
 ## Structure
