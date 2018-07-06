@@ -4,7 +4,7 @@
 ### IS IT ALLOWED TO USE set -e IN PRODUCTION?
 #set -e
 
-SEMESTER="$HOME/university/00-bachelor-computer-science/05-semester/"
+SEMESTER="$HOME/university/00-bachelor-computer-science/06-semester/"
 export SEMESTER
 
 ## commented out as it is unknown to me if "set -e" is allowed
