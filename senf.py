@@ -87,17 +87,6 @@ def get_course(ctx, args, incomplete):
 def cli():
     init_lecture()
 
-@cli.command()
-@click.argument("course", required=False, type=click.STRING, autocompletion=get_course)
-def cd(course=None):
-    senf_info("Please use the provided senf-cd bash script for this action.")
-    return 
-    global COURSE
-    if course:
-        senf_error("THIS FUNCTION IS NOT YET IMPLEMENTED")
-    else:
-        os.chdir(COURSE)
-        senf_info("Changing to... {}".format(COURSE))
 
 @cli.command()
 @click.argument("course", type=click.STRING)
@@ -116,6 +105,17 @@ def mklecture(course):
     for l_file in COURSE_FILES:
             touch_file(COURSE_ABS_PATH + l_file)
 
+
+######################################################################
+# process changing commands, which have to be implemented in a shell
+# script. 
+# implementation for the according hints are done in python though
+######################################################################
 @cli.command()
 def workon():
     senf_info("Please use the provided senf-workon bash script for this action")
+
+@cli.command()
+def cd():
+    senf_info("Please use the provided senf-cd bash script for this action.")
+    return 
