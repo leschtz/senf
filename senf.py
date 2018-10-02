@@ -58,7 +58,7 @@ def init_lecture():
             SEMESTER = os.path.expanduser(semester_tmp)
         else:
             # TODO implement warning here
-            click.echo("THIS IS NOT WORKING")
+            senf_error("THIS IS NOT WORKING")
 
 
 ######################################################################

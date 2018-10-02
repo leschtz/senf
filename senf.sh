@@ -1,14 +1,43 @@
 #! /bin/bash
 # created by leschtz
 
+UNIVERSITY_DIR=$HOME/university
+STUDY=$UNIVERSITY_DIR/01-master-computer-engineering
+SEMESTER=$STUDY/01-semester
+
+senf-set-study() { 
+    STUDY=$(find "$UNIVERSITY_DIR" -maxdepth 1 -name "$1" -type d -print -quit) 
+}
+
+function _study_autocom(){
+        local cur
+        COMPREPLY=()
+        cur=${COMP_WORDS[COMP_CWORD]}
+        COMPREPLY=($(compgen -W "$(ls $UNIVERSITY_DIR)" -- $cur ))
+}
+complete -F _study_autocom senf-set-study
+
+
+senf-set-semester() {
+    SEMESTER=$(find "$STUDY" -maxdepth 1 -name "$1" -type d -print -quit)
+}
+
+function _semester_autocom(){
+        local cur
+        COMPREPLY=()
+        cur=${COMP_WORDS[COMP_CWORD]}
+        COMPREPLY=($(compgen -W "$(ls $STUDY)" -- $cur ))
+}
+complete -F _semester_autocom senf-set-semester
+
 senf-workon() {
-  COURSE=$(find "$SEMESTER" -maxdepth 1 -name "$1" -type d -print -quit)
-  if [[ -z $COURSE ]]; then
-          printf 'There is no course %s for this semester!\n' "$1"
-  else
-          printf 'WORKON: '%s'\n' "$COURSE"
-          source "$COURSE"/.studyrc
-  fi
+    COURSE=$(find "$SEMESTER" -maxdepth 1 -name "$1" -type d -print -quit)
+    if [[ -z $COURSE ]]; then
+        printf 'There is no course %s for this semester!\n' "$1"
+    else
+        printf 'WORKON: '%s'\n' "$COURSE"
+        source "$COURSE"/.studyrc
+    fi
 }
 
 senf-deactivate() {
