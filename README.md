@@ -1,10 +1,11 @@
 # senf - study environment
-senf offers some handy bash functions for students.
+senf offers some handy bash and python functions for students.
 
 ## How does it work?
-senf sets an environment variable `$COURSE`, when you start your study environment. This variable offers you easier access to your course hierarchy.
+senf sets various environment variables, eg. `$COURSE`, when you start your study environment. This variable offers you easier access to your course hierarchy.
 
 ## Features
+0. most importantly: auto-completion
 1. move files easily to your target course
 2. every course has a properly defined hierarchy
 3. set course specific aliases or functions with the `.studyrc` file
@@ -13,42 +14,31 @@ senf sets an environment variable `$COURSE`, when you start your study environme
 
 ## Example
 A simple example would be moving course related content to your course folder hierarchy.
-```bash
-# create a new course
-senf-init soma
+```
+# workon an existing course
+senf-workon [course]
 
-# course is called soma
-senf-workon soma
-
-# cd into your local downloads location
-cd ~/Downloads
-
-# move the previously downloaded presentation slide to your presentation folder
-senf-mv presentation soma-presentation-01.pdf
+# create a lecture
+senf mklecture [course]
 
 # leave your student environment
 senf-deactivate
 ```
 
-## Usage (planned)
-```
-senf-[command] [parameters]
-
-# all-time working functions
-senf-init [course-name]
-senf-workon [course-name]
-senf-list
+## Usage
+```bash
+senf-workon [course]
 senf-deactivate
 
-# working while in an environment
-senf-mv [course-directory] [file1] [...] [fileN]
-senf-zip [course-directory]
-senf-send [application] [course-directory]
-senf-ssh # add ssh key to ssh-agent for the specific course
+senf-set-study [study]
+senf-set-semester [semester]
 ```
 
+````python
+senf mklecture [course]
+```
 ## Structure
-`senf-init [course-name]` creates a new course, by setting up the according directory structure. The structure is as follows:
+`senf mklecture [course]` creates a new course, by setting up the according directory structure. The structure is as follows:
 
 ```
 [course-name]/
