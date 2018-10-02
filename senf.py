@@ -2,23 +2,49 @@ import click
 import shutil
 import os
 
-LECTURE_DIRECTORIES = [
+######################################################################
+# data
+######################################################################
+COURSE_DIR_STRUCTURE = [
                 "books",
                 "practicals",
                 "exam-preparation",
                 "lecture"
                 ]
 
-LECTURE_FILES = [
+COURSE_FILES = [
                 "links",
                 ".studyrc"
                 ]
 
 SEMESTER = None
 
-def get_env_vars(ctx, args, incomplete):
-        return [k for k in os.environ.keys() if incomplete in k]
+## COLORS
+RED = "red"
+GREEN = "green"
+BLUE = "blue"
 
+######################################################################
+# Output handling
+######################################################################
+def senf_error(msg):
+    click.echo(click.style("[ERROR]: " + msg, fg=RED))
+
+def senf_ok(msg):
+    click.echo(click.style("[INFO]: " + msg, fg=GREEN))
+
+######################################################################
+# helpers
+######################################################################
+NOT_IMPLEMENTED = senf_error("THIS FUNCTION IS NOT YET IMPLEMENTED")
+
+def touch_file(filename):
+    with open(filename, 'a'):
+        os.utime(filename, None)
+
+######################################################################
+# controller
+######################################################################
 def init_lecture():
     global SEMESTER
     if os.environ['TEST']:
@@ -33,37 +59,47 @@ def init_lecture():
             # TODO implement warning here
             click.echo("THIS IS NOT WORKING")
 
-def touch_file(filename):
-    with open(filename, 'a'):
-        os.utime(filename, None)
 
-def get_lecture(ctx, args, incomplete):
+######################################################################
+# callbacks for autocompletion 
+######################################################################
+def get_course(ctx, args, incomplete):
     init_lecture()
     return [k for k in os.listdir(SEMESTER) if incomplete in k]
 
+######################################################################
+# Command Line Interface 
+######################################################################
 @click.group()
 def cli():
     init_lecture()
 
 @cli.command()
-@click.argument('directory', type=click.STRING, autocompletion=get_lecture)
-def cd(directory):
-    click.echo("not yet implemented")
+@click.argument("course", type=click.STRING, autocompletion=get_course)
+def cd(course):
+    NOT_IMPLEMENTED
 
 @cli.command()
-@click.argument('lecture_name', type=click.STRING)
-def mklecture(lecture_name):
-    if os.path.exists(SEMESTER + lecture_name):
+@click.argument("course", type=click.STRING)
+def mklecture(course):
+    if os.path.exists(SEMESTER + course):
         # TODO error warning
-        click.echo("this dir already exists")
+        click_error("This lecture already exists.")
         return
 
-    LECTURE_ABS_PATH = SEMESTER + lecture_name + "/"    
-    os.mkdir(LECTURE_ABS_PATH)
+    COURSE_ABS_PATH = SEMESTER + course + "/"    
+    os.mkdir(COURSE_ABS_PATH)
 
-    for directory in LECTURE_DIRECTORIES:
-        os.mkdir(LECTURE_ABS_PATH + directory + "/")        
+    for directory in COURSE_DIR_STRUCTURE:
+        os.mkdir(COURSE_ABS_PATH + directory + "/")        
 
-    for l_file in LECTURE_FILES:
-            touch_file(LECTURE_ABS_PATH + l_file)
+    for l_file in COURSE_FILES:
+            touch_file(COURSE_ABS_PATH + l_file)
 
+@cli.command()
+
+
+@cli.command()
+@click.argument("course", type=click.STRING, autocompletion=get_course)
+def workon(course):
+    NOT_IMPLEMENTED
