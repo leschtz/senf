@@ -6,6 +6,7 @@ setup(
     py_modules=['senf'],
     install_requires=[
             'click',
+            'colorama',
             ],
     entry_points='''
         [console_scripts]
