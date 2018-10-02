@@ -34,7 +34,7 @@ senf-set-study [study]
 senf-set-semester [semester]
 ```
 
-````python
+```python
 senf mklecture [course]
 ```
 ## Structure
