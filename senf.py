@@ -31,13 +31,14 @@ def senf_error(msg):
     click.echo(click.style("[ERROR]: " + msg, fg=RED))
 
 def senf_ok(msg):
-    click.echo(click.style("[INFO]: " + msg, fg=GREEN))
+    click.echo(click.style("[OK   ]: " + msg, fg=GREEN))
+
+def senf_info(msg):
+    click.echo(click.style("[INFO ]: " + msg, fg=BLUE))
 
 ######################################################################
 # helpers
 ######################################################################
-NOT_IMPLEMENTED = senf_error("THIS FUNCTION IS NOT YET IMPLEMENTED")
-
 def touch_file(filename):
     with open(filename, 'a'):
         os.utime(filename, None)
@@ -77,7 +78,7 @@ def cli():
 @cli.command()
 @click.argument("course", type=click.STRING, autocompletion=get_course)
 def cd(course):
-    NOT_IMPLEMENTED
+    senf_error("THIS FUNCTION IS NOT YET IMPLEMENTED")
 
 @cli.command()
 @click.argument("course", type=click.STRING)
@@ -96,10 +97,7 @@ def mklecture(course):
     for l_file in COURSE_FILES:
             touch_file(COURSE_ABS_PATH + l_file)
 
-@cli.command()
-
 
 @cli.command()
-@click.argument("course", type=click.STRING, autocompletion=get_course)
-def workon(course):
-    NOT_IMPLEMENTED
+def workon():
+    senf_info("Please use the provided senf-workon bash script for this action")
