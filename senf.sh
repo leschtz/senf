@@ -5,13 +5,19 @@ UNIVERSITY_DIR=$HOME/university
 STUDY=$UNIVERSITY_DIR/01-master-computer-engineering
 SEMESTER=$STUDY/01-semester
 
+export UNIVERSITY_DIR
+export STUDY
+export SEMESTER
+
 senf-cd() {
-    cd $COURSE
+    pushd $COURSE
     }
 
 senf-set-study() { 
     STUDY=$(find "$UNIVERSITY_DIR" -maxdepth 1 -name "$1" -type d -print -quit) 
+    export STUDY
 }
+
 
 function _study_autocom(){
         local cur
@@ -24,6 +30,7 @@ complete -F _study_autocom senf-set-study
 
 senf-set-semester() {
     SEMESTER=$(find "$STUDY" -maxdepth 1 -name "$1" -type d -print -quit)
+    export SEMESTER
 }
 
 function _semester_autocom(){
@@ -41,6 +48,7 @@ senf-workon() {
     else
         printf 'WORKON: '%s'\n' "$COURSE"
         source "$COURSE"/.studyrc
+        export COURSE
     fi
 }
 
@@ -55,3 +63,6 @@ function _courses_autocom(){
         COMPREPLY=($(compgen -W "$(ls $SEMESTER)" -- $cur ))
 }
 complete -F _courses_autocom senf-workon
+
+
+eval "$(_SENF_COMPLETE=source senf)"
