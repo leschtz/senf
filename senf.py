@@ -90,6 +90,8 @@ def cli():
 @cli.command()
 @click.argument("course", required=False, type=click.STRING, autocompletion=get_course)
 def cd(course=None):
+    senf_info("Please use the provided senf-cd bash script for this action.")
+    return 
     global COURSE
     if course:
         senf_error("THIS FUNCTION IS NOT YET IMPLEMENTED")
