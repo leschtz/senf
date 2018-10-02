@@ -17,7 +17,9 @@ COURSE_FILES = [
                 ".studyrc"
                 ]
 
+STUDY = None
 SEMESTER = None
+COURSE = None
 
 ## COLORS
 RED = "red"
@@ -47,18 +49,28 @@ def touch_file(filename):
 # controller
 ######################################################################
 def init_lecture():
+    global STUDY
     global SEMESTER
+    global COURSE
+    
     if os.environ['TEST']:
         # print("THIS IS A TEST ENVIRONMENT!!!")
         SEMESTER = os.path.expanduser(os.getcwd() + "/test/")
+        COURSE = os.path.expanduser(SEMESTER + "test_lecture/")
         # print(SEMESTER)
     else:
         semester_tmp = os.environ['SEMESTER']
-        if semester_tmp:
+        study_tmp = os.environ['STUDY']
+        course_tmp = os.environ['COURSE']
+
+        if course_tmp:
+            COURSE = course_tmp
+
+        if semester_tmp and study_tmp:
             SEMESTER = os.path.expanduser(semester_tmp)
+            STUDY = os.path.expanduser(study_tmp)
         else:
-            # TODO implement warning here
-            senf_error("THIS IS NOT WORKING")
+            senf_error("Could not initialize the environment.")
 
 
 ######################################################################
@@ -76,9 +88,14 @@ def cli():
     init_lecture()
 
 @cli.command()
-@click.argument("course", type=click.STRING, autocompletion=get_course)
-def cd(course):
-    senf_error("THIS FUNCTION IS NOT YET IMPLEMENTED")
+@click.argument("course", required=False, type=click.STRING, autocompletion=get_course)
+def cd(course=None):
+    global COURSE
+    if course:
+        senf_error("THIS FUNCTION IS NOT YET IMPLEMENTED")
+    else:
+        os.chdir(COURSE)
+        senf_info("Changing to... {}".format(COURSE))
 
 @cli.command()
 @click.argument("course", type=click.STRING)
@@ -96,7 +113,6 @@ def mklecture(course):
 
     for l_file in COURSE_FILES:
             touch_file(COURSE_ABS_PATH + l_file)
-
 
 @cli.command()
 def workon():

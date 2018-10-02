@@ -5,6 +5,10 @@ UNIVERSITY_DIR=$HOME/university
 STUDY=$UNIVERSITY_DIR/01-master-computer-engineering
 SEMESTER=$STUDY/01-semester
 
+senf-cd() {
+    cd $COURSE
+    }
+
 senf-set-study() { 
     STUDY=$(find "$UNIVERSITY_DIR" -maxdepth 1 -name "$1" -type d -print -quit) 
 }
