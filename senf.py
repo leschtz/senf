@@ -8,7 +8,7 @@ import configparser
 # data
 ######################################################################
 COURSE_DIR_STRUCTURE = ["books", "practicals", "exam-preparation", "lecture"]
-COURSE_FILES = ["links", ".studyrc"]
+COURSE_FILES = ["links", ".studyrc", ".info"]
 
 STUDY = None
 SEMESTER = None
@@ -59,6 +59,9 @@ def senf_ok(msg):
 
 def senf_info(msg):
     click.echo(click.style("[INFO ]: " + msg, fg=BLUE))
+
+def senf(msg):
+    click.echo(click.style(msg, fg=BLUE))
 
 ######################################################################
 # helpers
@@ -151,29 +154,25 @@ def mv(directory, files):
     else:
         dst = SEMESTER + "/" + directory
 
-    for f_ in files:
-        shutil.move(f_, dst)
-        senf_info("Moving file {} to {} ".format(f_, dst))
+    for f in files:
+        shutil.move(f, dst)
+        senf_info("Moving file {} to {} ".format(f, dst))
 
 @cli.command(help="")
 def ls():
     if SEMESTER:
         courses = os.listdir(SEMESTER)[::-1]
 
-
-        
-
         data = os.linesep.join(courses)
         
         for d in courses:
             config = configparser.ConfigParser()
             info_file = SEMESTER + os.sep + d + os.sep + ".info"
-            string = "{} -- NONE: ".format(d)
+            string = "\t{} -- NONE: ".format(d)
             if os.path.isfile(info_file):
                 config.read(info_file)
-                string = "{} -- {}: {}".format(d, config["DEFAULT"]["CourseName"], config["DEFAULT"]["CourseDescription"])
-            print(string)
-        #print(os.listdir(SEMESTER))
+                string = "\t{} -- {}: {}".format(d, config["DEFAULT"]["CourseName"], config["DEFAULT"]["CourseDescription"])
+            senf(string)
     else:
         senf_error("Variable $SEMESTER not set.")
 
