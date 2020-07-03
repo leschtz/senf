@@ -3,7 +3,7 @@
 
 UNIVERSITY_DIR=$HOME/university
 STUDY=$UNIVERSITY_DIR/01-master-computer-engineering
-SEMESTER=$STUDY/01-semester
+SEMESTER=$STUDY/03-semester
 
 export UNIVERSITY_DIR
 export STUDY
